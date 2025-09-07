@@ -155,10 +155,9 @@ async def profile_command(update: Update, context: ContextTypes.DEFAULT_TYPE) ->
         hours = seconds // 3600
         minutes = (seconds % 3600) // 60
 
-        keyboard = [[InlineKeyboardButton("Admin", url='t.me/metaui'),
-                 InlineKeyboardButton("Support", url='https://t.me/+kBmOgvOBXgUxYWU9')]]
-    reply_markup = InlineKeyboardMarkup(keyboard)
-
+        keyboard = [[InlineKeyboardButton("Admin", url="t.me/metaui"),
+                 InlineKeyboardButton("Support", url="https://t.me/+kBmOgvOBXgUxYWU9")]]
+        reply_markup = InlineKeyboardMarkup(keyboard)
         await update.message.reply_text(
             f"📋 <b>Your Profile:</b>\n\n"
             f"👤 <b>Name:</b> {name}\n"
@@ -436,4 +435,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
