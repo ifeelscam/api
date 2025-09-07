@@ -31,7 +31,7 @@ user_key_usage = defaultdict(int)
 ADMINS = [7387793694,6241590270]  # Replace with actual admin Telegram user IDs
 
 # MongoDB connection setup
-MONGO_URI = "mongodb+srv://PythonBotz:Baddie@cluster0.xunylzo.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+MONGO_URI = "mongodb+srv://sanji01:sanji01@sanjimongo02.zgs4i.mongodb.net/?retryWrites=true&w=majority&appName=AlyaFilesBot"
 client = MongoClient(MONGO_URI)
 db = client["AP1xBot"]  # Database name
 user_collection = db["users"]  # Collection name
@@ -435,5 +435,6 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
 
