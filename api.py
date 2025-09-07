@@ -19,7 +19,7 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 # Load sensitive data from environment variables
-TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN", "7470984428:AAFITxmEEZwxlNqFpaM3ZlbwracPqL-_l-U")
+TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN", "8044268114:AAH_eYmxwdPRnv49WPh6XAUB99Fg1_yP3hQ")
 API_URL = os.getenv("API_URL", "https://ig-report.vercel.app/api/key?key=rehan_drsudo_report_api_admin&days=7")
 # Single configuration for multiple channels for force subscription
 FSUB_CHANNELS = os.getenv("FSUB_CHANNELS", "@illegalCollege").split(",")
@@ -28,12 +28,12 @@ FSUB_CHANNELS = os.getenv("FSUB_CHANNELS", "@illegalCollege").split(",")
 user_key_usage = defaultdict(int)
 
 # List of admin user IDs
-ADMINS = [7387793694]  # Replace with actual admin Telegram user IDs
+ADMINS = [7387793694,6241590270]  # Replace with actual admin Telegram user IDs
 
 # MongoDB connection setup
 MONGO_URI = "mongodb+srv://PythonBotz:Baddie@cluster0.xunylzo.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
 client = MongoClient(MONGO_URI)
-db = client["SuperAPIBot"]  # Database name
+db = client["AP1xBot"]  # Database name
 user_collection = db["users"]  # Collection name
 
 # Load user data from MongoDB
@@ -69,7 +69,7 @@ async def key_command(update: Update, context: ContextTypes.DEFAULT_TYPE) -> Non
     if user_id not in ADMINS and not await has_valid_access(user_id, context.application):
         await update.message.reply_text(
             "🚫 You do not have access to use this bot.\n\n"
-            "💳 Please contact an admin to buy access."
+            "💳 Please contact my admin to buy access.\n\n 🧢 Admins : @TagRehan & @metaui"
         )
         return
 
@@ -100,6 +100,9 @@ async def key_command(update: Update, context: ContextTypes.DEFAULT_TYPE) -> Non
             data = response.json()
             key = data.get("key", "No key found")  # Extract only the key from the API response
 
+            keyboard = [[InlineKeyboardButton("Update", url='t.me/DrSudo'),
+                 InlineKeyboardButton("Support", url='t.me/PythonBotz')]]
+            reply_markup = InlineKeyboardMarkup(keyboard)
             # Cool message format
             await update.message.reply_text(
                 "🎉 <b>Congratulations!</b>\n\n"
@@ -107,6 +110,7 @@ async def key_command(update: Update, context: ContextTypes.DEFAULT_TYPE) -> Non
                 f"<code>{key}</code>\n\n"
                 "⏳ This key will expire after <b>1 day</b>.\n\n"
                 "💡 Use it wisely!",
+                reply_markup=reply_markup,
                 parse_mode="HTML"
             )
         else:
@@ -151,18 +155,24 @@ async def profile_command(update: Update, context: ContextTypes.DEFAULT_TYPE) ->
         hours = seconds // 3600
         minutes = (seconds % 3600) // 60
 
+        keyboard = [[InlineKeyboardButton("Admin", url='t.me/metaui'),
+                 InlineKeyboardButton("Support", url='https://t.me/+kBmOgvOBXgUxYWU9')]]
+    reply_markup = InlineKeyboardMarkup(keyboard)
+
         await update.message.reply_text(
             f"📋 <b>Your Profile:</b>\n\n"
             f"👤 <b>Name:</b> {name}\n"
             f"🆔 <b>User ID:</b> {user_id}\n"
             f"⏳ <b>Access Expires In:</b> {days}d {hours}h {minutes}m\n\n"
             "💡 Contact an admin to extend your access.",
+            reply_markup=reply_markup,
             parse_mode="HTML"
         )
     else:
         await update.message.reply_text(
-            "🚫 You do not have access to this bot.\n\n"
-            "💡 Please contact an admin to gain access."
+            "<b>🚫 You do not have access to this bot.\n\n"
+            "💡 Please contact an admin to gain access.</b>",
+            parse_mode="HTML"
         )
 
 # Welcome message with subscription check
@@ -191,10 +201,11 @@ async def start_command(update: Update, context: ContextTypes.DEFAULT_TYPE) -> N
 
     # Cool welcome message
     bot_username = context.bot.username
-    keyboard = [[InlineKeyboardButton("Fetch API Data", callback_data='key')]]
+    keyboard = [[InlineKeyboardButton("Update", url='t.me/DrSudo'),
+                 InlineKeyboardButton("Support", url='t.me/PythonBotz')]]
     reply_markup = InlineKeyboardMarkup(keyboard)
     await update.message.reply_text(
-        "👋 Welcome to <b>Super API Bot</b>!\n\n"
+        "👋 Welcome to <b>DrSudo API Bot</b>!\n\n"
         "✨ Use <b>/key</b> to fetch your API data.\n\n"
         "💡 Click the button below or use /key anytime.",
         reply_markup=reply_markup,
@@ -203,27 +214,38 @@ async def start_command(update: Update, context: ContextTypes.DEFAULT_TYPE) -> N
 
 # Command to display information about the bot
 async def about_command(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    keyboard = [[InlineKeyboardButton("Update", url='t.me/DrSudo'),
+                 InlineKeyboardButton("Support", url='t.me/PythonBotz')]]
+    reply_markup = InlineKeyboardMarkup(keyboard)
     await update.message.reply_text(
-        "🤖 <b>About Super API Bot</b>\n\n"
-        "This bot allows you to fetch API keys and access data securely. "
-        "It ensures that only subscribed users can use the bot's features.\n\n"
-        "🔒 <b>Features:</b>\n"
-        "• Fetch API keys with /key\n"
-        "• Ensure secure access with channel subscription\n\n"
-        "💡 Created with ❤️ by <b>Super API Team</b>.",
+        '''🤖 <b>About DrSudo API Bot</b>\n
+        <blockquote expandable> <b><u>All Endpoints</u></b>\n\n
+    generate_new: "<code>/api/rep1/ig?key={key}&user={username}</code>",
+
+      get_saved: "<code>/api/rep/ig?key={key}&user={username}</code>",
+
+      mass_report: "<code>/api/mass/ig?key={key}&user={username}</code>"
+       </blockquote>
+        💡 Created with ❤️ by <b>PythonBotz</b>.''',
+        reply_markup=reply_markup,
         parse_mode="HTML"
     )
 
 # Command to display help information
 async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    keyboard = [[InlineKeyboardButton("Update", url='t.me/DrSudo'),
+                 InlineKeyboardButton("Support", url='t.me/PythonBotz')]]
+    reply_markup = InlineKeyboardMarkup(keyboard)
     await update.message.reply_text(
         "🆘 <b>Help Menu</b>\n\n"
         "Here are the commands you can use:\n"
         "• /start - Start the bot and check subscription\n"
         "• /key - Fetch your API key\n"
+        "• /profile - See You details \n"
         "• /about - Learn more about this bot\n"
         "• /help - Display this help menu\n\n"
         "If you face any issues, please contact support.",
+        reply_markup=reply_markup,
         parse_mode="HTML"
     )
 
@@ -414,3 +436,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
